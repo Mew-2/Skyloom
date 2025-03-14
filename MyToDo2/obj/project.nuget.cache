@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "LtAtWHenJQk=",
+  "success": true,
+  "projectFilePath": "C:\\YZ\\MyToDo2\\MyToDo2\\MyToDo2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\dryioc.dll\\5.4.3\\dryioc.dll.5.4.3.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\materialdesigncolors\\5.2.1\\materialdesigncolors.5.2.1.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\materialdesignthemes\\5.2.1\\materialdesignthemes.5.2.1.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.1\\microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.122\\microsoft.xaml.behaviors.wpf.1.1.122.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\prism.container.abstractions\\9.0.106\\prism.container.abstractions.9.0.106.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\prism.container.dryioc\\9.0.106\\prism.container.dryioc.9.0.106.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\prism.core\\9.0.537\\prism.core.9.0.537.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\prism.dryioc\\9.0.537\\prism.dryioc.9.0.537.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\prism.events\\9.0.537\\prism.events.9.0.537.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\prism.wpf\\9.0.537\\prism.wpf.9.0.537.nupkg.sha512",
+    "C:\\Users\\zhangyuan\\.nuget\\packages\\restsharp\\112.1.0\\restsharp.112.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}

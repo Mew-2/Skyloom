@@ -1,0 +1,169 @@
+﻿<UserControl
+    x:Class="MyToDo2.Views.MemoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cvt="clr-namespace:MyToDo2.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:MyToDo2.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <cvt:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
+    </UserControl.Resources>
+    <md:DrawerHost IsRightDrawerOpen="{Binding IsRightDrawerOpen}">
+        <md:DrawerHost.RightDrawerContent>
+            <StackPanel Width="300">
+                <TextBlock
+                    Margin="20,10"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Text="备忘" />
+
+                <TextBox
+                    Margin="20,10"
+                    md:HintAssist.Hint="请输入备忘概要"
+                    md:TextFieldAssist.HasClearButton="True"
+                    md:TextFieldAssist.UnderlineBrush="{DynamicResource MaterialDesign.Brush.Secondary}"
+                    Text="{Binding CurrentDto.Title}" />
+
+                <TextBox
+                    Height="100"
+                    Margin="20,10"
+                    md:HintAssist.Hint="请输入备忘内容"
+                    md:TextFieldAssist.HasClearButton="True"
+                    md:TextFieldAssist.UnderlineBrush="{DynamicResource MaterialDesign.Brush.Secondary}"
+                    AcceptsReturn="True"
+                    SpellCheck.IsEnabled="True"
+                    Text="{Binding CurrentDto.Content}"
+                    TextWrapping="Wrap" />
+
+                <Button
+                    Margin="20"
+                    Command="{Binding ExecuteCommand}"
+                    CommandParameter="保存"
+                    Content="添加备忘"
+                    Style="{DynamicResource MaterialDesignRaisedSecondaryButton}" />
+            </StackPanel>
+        </md:DrawerHost.RightDrawerContent>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBox
+                Width="250"
+                Margin="15,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                md:HintAssist.Hint="显示查找备忘事项……"
+                md:TextFieldAssist.HasClearButton="True"
+                md:TextFieldAssist.UnderlineBrush="{DynamicResource MaterialDesign.Brush.Secondary}"
+                Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding
+                        Key="Enter"
+                        Command="{Binding ExecuteCommand}"
+                        CommandParameter="查询" />
+                </TextBox.InputBindings>
+            </TextBox>
+
+            <Button
+                Margin="10,5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Command="{Binding ExecuteCommand}"
+                CommandParameter="打开新增页"
+                Content="+ 添加备忘"
+                Style="{DynamicResource MaterialDesignRaisedSecondaryButton}" />
+
+            <StackPanel
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Visibility="{Binding MemoDtos.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                <Image
+                    Width="150"
+                    Height="150"
+                    Source="/Images/Millia.png" />
+                <TextBlock
+                    Margin="0,10"
+                    FontSize="18"
+                    Text="尝试添加一些备忘录，以便在此处查看它们。" />
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="1" Margin="0,10">
+                <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding MemoDtos}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <md:TransitioningContent OpeningEffect="{md:TransitionEffect Kind=ExpandIn}" OpeningEffectsOffset="{md:IndexedItemOffsetMultiplier 0:0:0.05}">
+                                <md:Card
+                                    Width="240"
+                                    Height="180"
+                                    Margin="10"
+                                    Background="{DynamicResource MaterialDesign.Brush.Secondary}">
+
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.SelectedCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <Canvas Grid.RowSpan="2" ClipToBounds="True">
+                                            <Border
+                                                Canvas.Top="10"
+                                                Canvas.Right="-50"
+                                                Width="120"
+                                                Height="120"
+                                                Background="White"
+                                                CornerRadius="100"
+                                                Opacity="0.3" />
+                                            <Border
+                                                Canvas.Top="80"
+                                                Canvas.Right="-30"
+                                                Width="120"
+                                                Height="120"
+                                                Background="White"
+                                                CornerRadius="100"
+                                                Opacity="0.3" />
+                                        </Canvas>
+
+                                        <TextBlock Margin="10" Text="{Binding Title}" />
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="10"
+                                            Text="{Binding Content}" />
+
+                                        <md:PopupBox HorizontalAlignment="Right" VerticalAlignment="Center">
+                                            <Button
+                                                Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}"
+                                                Content="删除" />
+                                        </md:PopupBox>
+                                    </Grid>
+                                </md:Card>
+                            </md:TransitioningContent>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </md:DrawerHost>
+</UserControl>
